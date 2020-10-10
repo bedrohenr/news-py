@@ -3,6 +3,7 @@ import requests
 #imports constants from config.py
 from config import URL_BASE_TOP_HEADLINES, URL_BASE_EVERYTHING, API_KEY
 
+#Shows the top news
 def top_news(country, source = None, category = None, search = None):
     """
     Returns the top news of newsapi.org
@@ -35,6 +36,7 @@ def top_news(country, source = None, category = None, search = None):
     #returns the complete array
     return top_news
 
+#shows all the news
 def all_news(search, language = None):
     """
     Returns all news from newsapi.org
@@ -61,3 +63,12 @@ def all_news(search, language = None):
 
     #returns the complete array
     return all_news
+
+#shows the output of the news
+def output(country, news):
+    print(f"### Top noticias do pais - {country.upper()} ###")
+    if news:
+        for numero in range(len(news)):
+            print(f"{numero + 1} - {news[numero]}")
+    else:
+        print("Nao encontrei noticias")
