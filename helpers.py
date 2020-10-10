@@ -3,7 +3,7 @@ import requests
 #imports constants from config.py
 from config import URL_BASE_TOP_HEADLINES, URL_BASE_EVERYTHING, API_KEY
 
-#Shows the top news
+#shows the top news
 def top_news(country, source = None, category = None, search = None):
     """
     Returns the top news of newsapi.org
@@ -30,11 +30,12 @@ def top_news(country, source = None, category = None, search = None):
     #adding to the list via For loop (Title, Url, PublishedAt)
     for article in articles:
         top_news.append(f"{article['title']}, " 
-                             f"URL: {article['url']}, " 
+                             f"URL: {article['url']} " 
                              f"Publicado em: {article['publishedAt']}")
 
     #returns the complete array
-    return top_news
+    output_top(country, top_news)
+    return 0
 
 #shows all the news
 def all_news(search, language = None):
@@ -58,15 +59,25 @@ def all_news(search, language = None):
         #adding to the list via For loop (Title, Url, PublishedAt)
         for article in articles:
             all_news.append(f"{article['title']}, " 
-                                f"URL: {article['url']}, " 
+                                f"URL: {article['url']} " 
                                 f"Publicado em: {article['publishedAt']}")
 
     #returns the complete array
+    output_top(search, all_news)
     return all_news
 
+#shows the output of the top news
+def output_top(country, news):
+    print(f"### Top noticias do pais: {country.upper()} ###")
+    if news:
+        for numero in range(len(news)):
+            print(f"{numero + 1} - {news[numero]}")
+    else:
+        print("Nao encontrei noticias")
+
 #shows the output of the news
-def output(country, news):
-    print(f"### Top noticias do pais - {country.upper()} ###")
+def output_all(search, news):
+    print(f"### Todas noticias sobre: {search.title()} ###")
     if news:
         for numero in range(len(news)):
             print(f"{numero + 1} - {news[numero]}")

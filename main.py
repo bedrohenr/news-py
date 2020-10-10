@@ -1,5 +1,5 @@
 #imports functions from helpers.py
-from helpers import top_news, all_news, output
+from helpers import top_news, all_news
 
 print('##### NEWS API #####')
 print("Insira as informações solicitadas abaixo")
@@ -11,6 +11,5 @@ category = input("Insira a categoria (business, general): ")
 print()
 
 #Function calling
-news_top = top_news(country, search = search)
-
-output(country = country, news = news_top)
+#top_news(country, search = search)
+all_news(search, language = 'pt')
