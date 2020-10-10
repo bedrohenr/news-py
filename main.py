@@ -2,6 +2,16 @@
 from helpers import top_news, all_news
 
 print('##### NEWS API #####')
+
+while True:
+    choice = int(input("Escolha entre Top notícias e Todas as notícias. \n [1 - Top] [2 - Todas]: "))
+    if choice == 1:
+        break
+    elif choice == 2:
+        break
+    else:
+        print("Escolha inválida")
+        
 print("Insira as informações solicitadas abaixo")
 
 country = input("Insira o país da notícia (br, us): ")
@@ -11,5 +21,7 @@ category = input("Insira a categoria (business, general): ")
 print()
 
 #Function calling
-#top_news(country, search = search)
-all_news(search, language = 'pt')
+if choice == 1:
+    top_news(country, search = search)
+elif choice == 2:
+    all_news(search, language = 'pt')
