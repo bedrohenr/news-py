@@ -66,7 +66,7 @@ def all_news(search, language = None):
     output_top(search, all_news)
     return all_news
 
-#shows the output of the top news
+#returns the output of the top news
 def output_top(country, news):
     print(f"### Top noticias do pais: {country.upper()} ###")
     if news:
@@ -75,7 +75,7 @@ def output_top(country, news):
     else:
         print("Nao encontrei noticias")
 
-#shows the output of the news
+#returns the output of the news
 def output_all(search, news):
     print(f"### Todas noticias sobre: {search.title()} ###")
     if news:
