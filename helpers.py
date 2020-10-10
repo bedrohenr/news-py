@@ -19,4 +19,17 @@ def top_news(country, source = None, category = None, search = None):
     
     #response in json using the lib requests
     response = requests.get(url).json()
-    print(response)
+
+    #accessing the articles in the json (response)
+    articles = response['articles']
+
+    #Empty array to store the articles's details
+    top_news_list = []
+
+    #adding to the list via For loop (Title, Url, PublishedAt)
+    for article in articles:
+        top_news_list.append(f"{article['title']}, " 
+                             f"URL: {article['url']}, " 
+                             f"Publicado em: {article['publishedAt']}")
+
+    print(top_news_list)
