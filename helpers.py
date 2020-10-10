@@ -19,4 +19,4 @@ def top_news(country, source = None, category = None, search = None):
     
     #response in json using the lib requests
     response = requests.get(url).json()
-
+    print(response)
