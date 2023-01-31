@@ -1,10 +1,10 @@
 #imports functions from helpers.py
-from helpers import top_news, all_news
+from assets.helpers import top_news, all_news
 
 print('##### NEWS API #####')
 
 while True:
-    choice = int(input("Escolha entre Top notícias e Todas as notícias. \n [1 - Top] [2 - Todas]: "))
+    choice = int(input("Escolha entre Top notícias e Todas as notícias.\n[1 - Top] [2 - Todas]: "))
     if choice == 1:
         break
     elif choice == 2:
@@ -14,10 +14,10 @@ while True:
 
 print("Insira as informações solicitadas abaixo")
 
-country = input("Insira o país da notícia (br, us): ")
-search = input("Insira sua pesquisa (palavra ou frase): ")
-source = input("Insira a fonte (globo, bbc, google-News): ")
-category = input("Insira a categoria (business, general): ")
+country = input("País da notícia (br, us):*")
+search = input("Pesquisa (Palavra ou Frase): ")
+source = input("Fonte (globo, bbc, google-News): ")
+category = input("Categoria (negocios, politica, geral): ")
 print()
 
 #function calling
