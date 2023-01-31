@@ -1,7 +1,7 @@
 #imports lib requests
 import requests
 #imports constants from config.py
-from config import URL_BASE_TOP_HEADLINES, URL_BASE_EVERYTHING, API_KEY
+from assets.config import URL_BASE_TOP_HEADLINES, URL_BASE_EVERYTHING, API_KEY
 
 #shows the top news
 def top_news(country, source = None, category = None, search = None):
@@ -17,7 +17,7 @@ def top_news(country, source = None, category = None, search = None):
         url = f"{URL_BASE_TOP_HEADLINES}country={country}&q={search}&apiKey={API_KEY}"
     else:
         url = f"{URL_BASE_TOP_HEADLINES}country={country}&apiKey={API_KEY}"
-    
+
     #response in json using the lib requests
     response = requests.get(url).json()
 
@@ -29,9 +29,11 @@ def top_news(country, source = None, category = None, search = None):
 
     #adding to the list via For loop (Title, Url, PublishedAt)
     for article in articles:
-        top_news.append(f"{article['title']}, " 
-                             f"URL: {article['url']} " 
-                             f"Publicado em: {article['publishedAt']}")
+        top_news.append(
+            f"{article['title']}\n"
+            f"URL: {article['url']}\n"
+            f"Publicado em: {article['publishedAt']}\n"
+        )
 
     #returns the complete array
     output_top(country, top_news)
@@ -58,9 +60,11 @@ def all_news(search, language = None):
 
         #adding to the list via For loop (Title, Url, PublishedAt)
         for article in articles:
-            all_news.append(f"{article['title']}, " 
-                                f"URL: {article['url']} " 
-                                f"Publicado em: {article['publishedAt']}")
+            all_news.append(
+                f"{article['title']}\n\n"
+                f"URL: {article['url']}\n\n"
+                f"Publicado em: {article['publishedAt']}\n\n"
+            )
 
     #returns the complete array
     output_top(search, all_news)
@@ -68,18 +72,18 @@ def all_news(search, language = None):
 
 #returns the output of the top news
 def output_top(country, news):
-    print(f"### Top noticias do pais: {country.upper()} ###")
+    print(f"___ Top noticias do pais: {country.upper()} ___")
     if news:
         for numero in range(len(news)):
             print(f"{numero + 1} - {news[numero]}")
     else:
-        print("Nao encontrei noticias")
+        print("Nenhuma noticia encontrada.")
 
 #returns the output of the news
 def output_all(search, news):
-    print(f"### Todas noticias sobre: {search.title()} ###")
+    print(f"___ Todas noticias sobre: {search.title()} ___")
     if news:
         for numero in range(len(news)):
             print(f"{numero + 1} - {news[numero]}")
     else:
-        print("Nao encontrei noticias")
+        print("Nenhuma noticia encontrada.")
