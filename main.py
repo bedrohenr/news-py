@@ -21,7 +21,7 @@ country = ''
 if choice != 2:
     country = input("País da notícia* (br, us...): ")
 
-language = input("Linguagem desejada(pt, eng...): ")
+language = input("Linguagem desejada(pt, en...): ")
 
 print()
 
