@@ -1,5 +1,5 @@
 #imports functions from helpers.py
-from assets.helpers import top_news, all_news
+from assets.helpers import getNews
 
 print('##### NEWS API #####')
 
@@ -14,14 +14,16 @@ while True:
 
 print("Insira as informações solicitadas abaixo")
 
-country = input("País da notícia (br, us):*")
 search = input("Pesquisa (Palavra ou Frase): ")
-source = input("Fonte (globo, bbc, google-News): ")
-category = input("Categoria (negocios, politica, geral): ")
+
+country = ''
+if choice != 2:
+    country = input("País da notícia* (br, us...): ")
+
+language = input("Linguagem desejada(pt, eng...)")
+category = input("Categoria negocios, politica, geral): ")
 print()
 
 #function calling
-if choice == 1:
-    top_news(country, search = search)
-elif choice == 2:
-    all_news(search, language = 'pt')
+getNews(choice, country, category, search, language)
+

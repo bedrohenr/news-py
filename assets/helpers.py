@@ -3,85 +3,97 @@ import requests
 #imports constants from config.py
 from assets.config import URL_BASE_TOP_HEADLINES, URL_BASE_EVERYTHING, API_KEY
 
-#shows the top news
-def top_news(country, source = None, category = None, search = None):
-    """
-    Returns the top news of newsapi.org
-    """
-    #variable checking (if exists)
-    if source:
-        url = f"{URL_BASE_TOP_HEADLINES}sources={source}&apiKey={API_KEY}"
-    elif category:
-        url = f"{URL_BASE_TOP_HEADLINES}country={country}&category={category}&apiKey={API_KEY}"
-    elif search:
-        url = f"{URL_BASE_TOP_HEADLINES}country={country}&q={search}&apiKey={API_KEY}"
+    # returns & for url or not
+def paramCount(param_count):
+    if param_count != 0:
+        return '&'
     else:
-        url = f"{URL_BASE_TOP_HEADLINES}country={country}&apiKey={API_KEY}"
+        return ''
+
+def getUrl(news_type, country, category, search, language):
+    params = ''
+    param_count = 0
+    if country:
+        params += paramCount(param_count)
+        param_count += 1
+
+        params += f"country={country}"
+
+    if category:
+        params += paramCount(param_count)
+        param_count += 1
+
+        params += f"category={category}"
+
+    if search:
+        params += paramCount(param_count)
+        param_count += 1
+
+        params += f"q={search}"
+
+    if language:
+        params += paramCount(param_count)
+        param_count += 1
+
+        params += f"language={language}"
+
+    params += paramCount(param_count)
+    params += f"apiKey={API_KEY}"
+
+    url = ''
+    if news_type == 1:
+        url = f"{URL_BASE_TOP_HEADLINES}{params}"
+    elif news_type == 2:
+        url = f"{URL_BASE_EVERYTHING}{params}"
+
+    return url
+
+#shows the top news
+def getNews(choice, country = None, category = None, search = None, language = None):
+    """
+    Returns the news of newsapi.org given user input parameters
+    """
+
+    url = getUrl(choice, country, category, search, language)
 
     #response in json using the lib requests
     response = requests.get(url).json()
+
+    print(response)
+    if not response['status'] or response['status'] != 'ok':
+
+        print("Error. \nProgram exited.")
+        if response['code'] == 'parametersMissing':
+            msg = "Tente incluir mais parametros; Como pesquisa ou pais da noticia"
+            print("Message: " + msg)
+        exit()
 
     #accessing the articles in the json (response)
     articles = response['articles']
 
     #empty array to store the articles's details
-    top_news = []
+    news = []
 
     #adding to the list via For loop (Title, Url, PublishedAt)
     for article in articles:
-        top_news.append(
-            f"{article['title']}\n"
-            f"URL: {article['url']}\n"
-            f"Publicado em: {article['publishedAt']}\n"
+        news.append(
+            f"{article['title']}\n\n"
+            f"URL: {article['url']}\n\n"
+            f"Publicado em: {article['publishedAt']}\n\n"
         )
 
     #returns the complete array
-    output_top(country, top_news)
+    output(country, search, news)
     return 0
 
-#shows all the news
-def all_news(search, language = None):
-    """
-    Returns all news from newsapi.org
-    """
 
-    #creates empty array
-    all_news = []
-
+def output(country, search, news):
+        # Title
     if search:
-        if language:
-            url = f"{URL_BASE_EVERYTHING}q={search}&language={language}&apiKey={API_KEY}"
+        print(f"___ Top noticias sobre: {search.capitalize()} ___")
+    elif country:
+        print(f"___ Top noticias do pais: {country.upper()} ___")
 
-        #response in json using the lib requests
-        response = requests.get(url).json()
-
-        #accessing the articles in the json (response)
-        articles = response['articles']
-
-        #adding to the list via For loop (Title, Url, PublishedAt)
-        for article in articles:
-            all_news.append(
-                f"{article['title']}\n\n"
-                f"URL: {article['url']}\n\n"
-                f"Publicado em: {article['publishedAt']}\n\n"
-            )
-
-    #returns the complete array
-    output_top(search, all_news)
-    return all_news
-
-#returns the output of the top news
-def output_top(country, news):
-    print(f"___ Top noticias do pais: {country.upper()} ___")
-    if news:
-        for numero in range(len(news)):
-            print(f"{numero + 1} - {news[numero]}")
-    else:
-        print("Nenhuma noticia encontrada.")
-
-#returns the output of the news
-def output_all(search, news):
-    print(f"___ Todas noticias sobre: {search.title()} ___")
     if news:
         for numero in range(len(news)):
             print(f"{numero + 1} - {news[numero]}")
