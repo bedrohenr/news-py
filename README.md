@@ -8,3 +8,12 @@
 <p>Faz com que o python acesse à api, e retorne headlines com links à certas notícias.<br/>Dado alguns parâmetros pelo usuário como país, palavra-chave, linguagem...</p>
 
 <p>Feito na Semana Python (<a href="https://www.youtube.com/channel/UC51-6dVrEReXbNWdMiCWuRg">Aprenda programando</a>)</p>
+
+Requisitos
+
+Para executar o projeto:
+
+```
+<a href="https://pypi.org/project/requests/">Requests</a>: Para requisição à API
+<a href="https://pypi.org/project/python-dotenv/">Python-dotenv</a>: Lidar com arquivo .env (Variavel de ambiente)
+```
