@@ -10,7 +10,7 @@ def paramCount(param_count):
     else:
         return ''
 
-def getUrl(news_type, country, category, search, language):
+def getUrl(news_type, country, search, language):
     params = ''
     param_count = 0
     if country:
@@ -18,12 +18,6 @@ def getUrl(news_type, country, category, search, language):
         param_count += 1
 
         params += f"country={country}"
-
-    if category:
-        params += paramCount(param_count)
-        param_count += 1
-
-        params += f"category={category}"
 
     if search:
         params += paramCount(param_count)
@@ -38,7 +32,7 @@ def getUrl(news_type, country, category, search, language):
         params += f"language={language}"
 
     params += paramCount(param_count)
-    params += f"apiKey={API_KEY}"
+    params += f"pageSize=20&apiKey={API_KEY}"
 
     url = ''
     if news_type == 1:
@@ -49,17 +43,16 @@ def getUrl(news_type, country, category, search, language):
     return url
 
 #shows the top news
-def getNews(choice, country = None, category = None, search = None, language = None):
+def getNews(choice, country = None, search = None, language = None):
     """
     Returns the news of newsapi.org given user input parameters
     """
 
-    url = getUrl(choice, country, category, search, language)
+    url = getUrl(choice, country, search, language)
 
     #response in json using the lib requests
     response = requests.get(url).json()
 
-    print(response)
     if not response['status'] or response['status'] != 'ok':
 
         print("Error. \nProgram exited.")

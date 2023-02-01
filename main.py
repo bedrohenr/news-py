@@ -16,14 +16,15 @@ print("Insira as informações solicitadas abaixo")
 
 search = input("Pesquisa (Palavra ou Frase): ")
 
+    # País é um parametro aceitavel somente na escolha 1 (Top Noticias)
 country = ''
 if choice != 2:
     country = input("País da notícia* (br, us...): ")
 
-language = input("Linguagem desejada(pt, eng...)")
-category = input("Categoria negocios, politica, geral): ")
+language = input("Linguagem desejada(pt, eng...): ")
+
 print()
 
 #function calling
-getNews(choice, country, category, search, language)
+getNews(choice, country, search, language)
 
